@@ -1,6 +1,6 @@
 # 🏗️ Projeto em .NET com Clean Architecture + Multitenancy + JWT + Auditoria
 
-Este projeto foi desenvolvido em **.NET 8** seguindo os princípios da **Clean Architecture** e aplicando alguns conceitos de **CQRS (Command Query Responsibility Segregation)**.
+Este projeto foi desenvolvido em **.NET 9** seguindo os princípios da **Clean Architecture** e aplicando alguns conceitos de **CQRS (Command Query Responsibility Segregation)**.
 
 ## 🔧 Tecnologias e Arquitetura
 
