@@ -1,0 +1,6 @@
+@BaseModel.WebAPI_HostAddress = http://localhost:5100
+
+GET {{BaseModel.WebAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
