@@ -41,7 +41,19 @@ Este projeto foi desenvolvido em **.NET 9** seguindo os princípios da **Clean A
 - Repositórios genéricos com injeção de dependência.
 - `UnitOfWork` para controle de transações.
 
-## 🚀 Como Executar
+## ⚙️ Migrations
+
+As migrations devem ser criadas e executadas com base no contexto desejado. Deve estar dentro da pasta BaseModel.Infra.Data.
+
+- Criar uma migration 
+  - dotnet ef migrations add NomeDaMigration --project Erp.Infra.Data --startup-project Erp.API --context AuthenticationDbContext
+  - dotnet ef migrations add NomeDaMigration --project Erp.Infra.Data --startup-project Erp.API --context TenantDbContext
+
+- Aplicar as migrations
+  - dotnet ef database update --context AuthenticationDbContext
+  - dotnet ef database update --context TenantDbContext
+
+## 🚀 Como Executar o projeto
 
 1. Configure a connection string e chaves JWT no `appsettings.json`.
 2. Rode os migrations com o EF Core.
