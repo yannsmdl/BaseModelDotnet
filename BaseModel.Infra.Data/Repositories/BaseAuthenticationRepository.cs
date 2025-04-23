@@ -42,12 +42,12 @@ namespace BaseModel.Infra.Data.Repositories
 
         public virtual async Task<IEnumerable<T>> GetAll()
         {
-            return await DbSet.ToListAsync();
+            return await DbSet.Where(e=> e.DeletedAt == null).ToListAsync();
         }
 
         public virtual async Task<T?> GetById(Guid id)
         {
-            return await DbSet.FindAsync(id);
+            return await DbSet.Where(e=> e.DeletedAt == null && e.Id == id).FirstOrDefaultAsync();
         }
 
         public virtual async Task<List<T>> GetByIds(List<Guid> ids)
