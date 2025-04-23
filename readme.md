@@ -46,8 +46,8 @@ Este projeto foi desenvolvido em **.NET 9** seguindo os princípios da **Clean A
 As migrations devem ser criadas e executadas com base no contexto desejado. Deve estar dentro da pasta BaseModel.Infra.Data.
 
 - Criar uma migration 
-  - dotnet ef migrations add NomeDaMigration --project Erp.Infra.Data --startup-project Erp.API --context AuthenticationDbContext
-  - dotnet ef migrations add NomeDaMigration --project Erp.Infra.Data --startup-project Erp.API --context TenantDbContext
+  - dotnet ef migrations add NomeDaMigration --context AuthenticationDbContext -o Migrations/Auth
+  - dotnet ef migrations add NomeDaMigration --context TenantDbContext -o Migrations/Tenant
 
 - Aplicar as migrations
   - dotnet ef database update --context AuthenticationDbContext
