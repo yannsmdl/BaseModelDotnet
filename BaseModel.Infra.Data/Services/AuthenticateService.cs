@@ -44,6 +44,11 @@ namespace BaseModel.Infra.Data.Services
         public async Task Logout()
         {
             await _signInManager.SignOutAsync();
+            var token = _tokenProvider.GetToken();
+            if (!string.IsNullOrWhiteSpace(token))
+            {
+                await _sessionRepository.InvalidateSession(token);
+            }
         }
 
         public async Task<UserTokenDTO?> RegisterUser(string email, string password)

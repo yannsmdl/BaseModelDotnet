@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Text;
 using BaseModel.Domain.Account;
 using BaseModel.Domain.DTOs;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 
@@ -11,10 +12,17 @@ namespace BaseModel.Infra.Data.Services
     public class TokenService : ITokenProvider
     {
         private readonly IConfiguration _configuration;
+        private readonly IHttpContextAccessor _httpContextAccessor;
 
-        public TokenService(IConfiguration configuration)
+        public TokenService(IConfiguration configuration, IHttpContextAccessor httpContextAccessor)
         {
+            _httpContextAccessor = httpContextAccessor;
             _configuration = configuration;
+        }
+        public string? GetToken()
+        {
+            var authHeader = _httpContextAccessor.HttpContext?.Request.Headers["Authorization"].ToString();
+            return authHeader?.Replace("Bearer ", "", StringComparison.OrdinalIgnoreCase);
         }
 
         public UserTokenDTO GenerateToken(BaseUserDTO user)
