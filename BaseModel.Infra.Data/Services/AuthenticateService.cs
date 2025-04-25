@@ -31,9 +31,13 @@ namespace BaseModel.Infra.Data.Services
             if (!result.Succeeded) return null;
 
             var user = await _userManager.FindByEmailAsync(email);
+            var roles = await _userManager.GetRolesAsync(user);
+            if (roles == null || roles.Count == 0) return null;
             var userToken = _tokenProvider.GenerateToken(new BaseUserDTO(){
                 Id = user.Id,
-                Email = user.Email
+                Email = user.Email,
+                Roles = roles.ToList(),
+                Username = user.UserName
             });
 
             await _sessionRepository.SaveSession(user.Id ,userToken.Token);

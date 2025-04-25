@@ -6,13 +6,8 @@ var builder = WebApplication.CreateBuilder(args);
 var environment = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT");
 Console.WriteLine($"Environment: {environment}");
 
-builder.Configuration.AddJsonFile($"appsettings.{environment}.json", optional: true, reloadOnChange: true)
+builder.Configuration.AddJsonFile($"appsettings.{environment ?? "Development"}.json", optional: true, reloadOnChange: true)
     .AddEnvironmentVariables();
-
-builder.WebHost.ConfigureKestrel(options =>
-{
-    options.ListenAnyIP(51000);
-});
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -28,11 +23,8 @@ builder.Services.AddInfrastructureHosted();
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI(); 
-}
+app.UseSwagger();
+app.UseSwaggerUI(); 
 
 app.UseCors("AllowAll");
 
