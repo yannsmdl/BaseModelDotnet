@@ -17,6 +17,11 @@ namespace BaseModel.Infra.Data.Context
         }
 
         public DbSet<Category> Categories { get; set; }
+        public DbSet<AddressClient> AddressClients { get; set; }
+        public DbSet<EmailClient> EmailClients { get; set; }
+        public DbSet<PhoneClient> PhoneClients { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

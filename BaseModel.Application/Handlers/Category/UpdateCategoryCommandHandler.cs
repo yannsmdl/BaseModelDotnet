@@ -22,11 +22,12 @@ namespace BaseModel.Application.Handlers.Categories
             var category = await _categoryRepository.GetById(request.Id);
             if (category == null)
             {
-                throw new ApplicationException("Category not exists");
+                AddError("Categoria não existe");
+                return ValidationResult;
             }
-            category.Update(
-                request.Name
-            );
+            category.SetName(request.Name);
+            
+            _categoryRepository.Update(category);
             return await Commit(_categoryRepository.UnitOfWork);
         }
     }

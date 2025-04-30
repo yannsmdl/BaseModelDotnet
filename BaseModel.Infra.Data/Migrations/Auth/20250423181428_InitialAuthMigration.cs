@@ -185,7 +185,7 @@ namespace BaseModel.Infra.Data.Migrations.Auth
                 columns: new[] { "Id", "ConnectionString", "CreatedAt", "CreatedBy", "DeletedAt", "DeletedBy", "IsActive", "Name", "TenantUrl", "UpdatedAt", "UpdatedBy" },
                 values: new object[,]
                 {
-                    { new Guid("11111111-1111-1111-1111-111111111111"), "Host=localhost;Database=yann_dotnet;Username=postgres;Password=postgres", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("00000000-0000-0000-0000-000000000000"), null, null, true, "TenantA", "http://tenant-a.com", null, null },
+                    { new Guid("11111111-1111-1111-1111-111111111111"), "Host=localhost;Database=new_erp_client_a_dotnet;Username=postgres;Password=postgres", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("00000000-0000-0000-0000-000000000000"), null, null, true, "ClientA", "client-a", null, null },
                     { new Guid("22222222-2222-2222-2222-222222222222"), "Host=localhost;Database=tenant_b;Username=postgres;Password=postgres", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("00000000-0000-0000-0000-000000000000"), null, null, true, "TenantB", "http://tenant-b.com", null, null },
                     { new Guid("33333333-3333-3333-3333-333333333333"), "Host=localhost;Database=tenant_c;Username=postgres;Password=postgres", new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new Guid("00000000-0000-0000-0000-000000000000"), null, null, true, "TenantC", "http://tenant-c.com", null, null }
                 });

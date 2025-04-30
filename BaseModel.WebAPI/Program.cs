@@ -1,4 +1,3 @@
-using BaseModel.Domain.Interfaces;
 using BaseModel.Infra.IoC;
 
 var builder = WebApplication.CreateBuilder(args);

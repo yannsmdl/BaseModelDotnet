@@ -3,8 +3,10 @@ using BaseModel.Application.Commands.Categories;
 using BaseModel.Application.DTOs;
 using BaseModel.Application.Interfaces;
 using BaseModel.Application.Queries.Categories;
+using BaseModel.Application.Shareds;
 using BaseModel.Domain.Entities;
 using BaseModel.Domain.Interfaces;
+using FluentValidation.Results;
 using MediatR;
 
 namespace BaseModel.Application.Services
@@ -33,23 +35,24 @@ namespace BaseModel.Application.Services
             return _mapper.Map<CategoryDTO>(categories);
         }
 
-        public async Task Remove(Guid Id)
+        public async Task<ValidationResult> Remove(Guid Id)
         {
             var categoryRemoveCommand = new RemoveCategoryCommand(Id);
-            await _mediator.Send(categoryRemoveCommand);
+            return await _mediator.Send(categoryRemoveCommand);
         }
 
-        public async Task Update(CategoryDTO category)
+        public async Task<ValidationResult> Update(CategoryDTO category)
         {
             var categoryUpdateCommand = _mapper.Map<UpdateCategoryCommand>(category);
-            await _mediator.Send(categoryUpdateCommand);
+            return await _mediator.Send(categoryUpdateCommand);
         }
 
-        public async Task Add(CategoryDTO category)
+        public async Task<ValidationResultWithData<Guid>> Add(CategoryDTO category)
         {
             category.Id = Guid.NewGuid();
             var categoryCreateCommand = _mapper.Map<CreateCategoryCommand>(category);
-            await _mediator.Send(categoryCreateCommand);
+            var validationResult = await _mediator.Send(categoryCreateCommand);
+            return new ValidationResultWithData<Guid>(validationResult, category.Id);
         }
     }
 }

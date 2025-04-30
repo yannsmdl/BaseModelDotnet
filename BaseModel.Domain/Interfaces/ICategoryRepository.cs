@@ -7,6 +7,7 @@ namespace BaseModel.Domain.Interfaces
     {
         Task<IEnumerable<Category>> GetAll();
         Task<Category?> GetById(Guid Id);
+        Task<Category?> GetByName(string name);
         void Add(Category category);
         void Update(Category category);
         void Remove(Category category);

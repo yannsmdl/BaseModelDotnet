@@ -20,6 +20,12 @@ namespace BaseModel.Application.Handlers.Categories
 
         public async Task<ValidationResult> Handle(CreateCategoryCommand request, CancellationToken cancellationToken)
         {
+            var categoryExists = await _categoryRepository.GetByName(request.Name);
+            if (categoryExists != null)
+            {
+                AddError("Já existe uma categoria com esse nome");
+                return ValidationResult;
+            }
             var category = new Category(
                 request.Id,
                 request.Name

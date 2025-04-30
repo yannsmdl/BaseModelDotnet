@@ -1,5 +1,6 @@
 using BaseModel.Application.DTOs;
 using BaseModel.Application.Interfaces;
+using BaseModel.Application.Shareds;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +9,7 @@ namespace BaseModel.WebAPI.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class CategoryController : ControllerBase
+    public class CategoryController : BaseController
     {
         private readonly ICategoryService _categoryService;
         public CategoryController
@@ -40,22 +41,40 @@ namespace BaseModel.WebAPI.Controllers
         public async Task<ActionResult> Create([FromBody] CategoryDTO categoryDTO)
         {
             if (categoryDTO == null) return BadRequest("Invalid Data");
-            await _categoryService.Add(categoryDTO);
-            return new CreatedAtRouteResult("GetCategoryById", new {id = categoryDTO.Id});
+            var result = await _categoryService.Add(categoryDTO);
+            if (!result.ValidationResult.IsValid)
+            {
+                var firstError = result.ValidationResult.Errors.FirstOrDefault()?.ErrorMessage ?? "Erro inesperado.";
+                return BadRequest(new ErrorResponse(firstError));
+            }
+
+            return Ok(result.Data);
         }
         [HttpPut("{Id:Guid}")]
         public async Task<ActionResult> Update([FromBody] CategoryDTO categoryDTO, Guid Id)
         {
             if (categoryDTO == null) return BadRequest("Invalid Data");
             categoryDTO.Id = Id;
-            await _categoryService.Update(categoryDTO);
-            return Ok(categoryDTO);
+            var result = await _categoryService.Update(categoryDTO);
+            if (!result.IsValid)
+            {
+                var firstError = result.Errors.FirstOrDefault()?.ErrorMessage ?? "Erro inesperado.";
+                return BadRequest(new ErrorResponse(firstError));
+            }
+
+            return Ok();
         }
 
         [HttpDelete("{Id:Guid}")]
         public async Task<ActionResult> Delete(Guid Id)
         {
-            await _categoryService.Remove(Id);
+            var result = await _categoryService.Remove(Id);
+            if (!result.IsValid)
+            {
+                var firstError = result.Errors.FirstOrDefault()?.ErrorMessage ?? "Erro inesperado.";
+                return BadRequest(new ErrorResponse(firstError));
+            }
+
             return Ok();
         }
     }

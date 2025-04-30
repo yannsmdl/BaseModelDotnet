@@ -12,9 +12,10 @@ namespace BaseModel.Domain.Entities
             Name = name;
         }
 
-        public void Update(string name)
+        public void SetName(string name)
         {
             ValidationDomain(name);
+            Name = name;
         }
 
         public Category(Guid id, string name)

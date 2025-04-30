@@ -4,6 +4,8 @@ using BaseModel.Domain.Account;
 using BaseModel.Domain.Interfaces;
 using BaseModel.Infra.Data.Context;
 using BaseModel.Infra.Data.Identity;
+using BaseModel.Infra.Data.Manager;
+using BaseModel.Infra.Data.Record;
 using BaseModel.Infra.Data.Repositories;
 using BaseModel.Infra.Data.Services;
 using BaseModel.Infra.Ioc.Mappings;
@@ -37,11 +39,22 @@ namespace BaseModel.Infra.IoC
                 .AddEntityFrameworkStores<AuthenticationDbContext>()
                 .AddDefaultTokenProviders();
 
+            services.AddScoped<ITenantDbContextRouteFactory, TenantDbContextRouteFactory>();
+            services.AddScoped<IDatabaseManager, DatabaseManager>();
+
             #endregion
 
             #region Repository
             services.AddScoped<ICategoryRepository, CategoryRepository>();
+            services.AddScoped<IStateRepository, StateRepository>();
             services.AddScoped<ISessionRepository, SessionRepository>();
+            services.AddScoped<ICityRepository, CityRepository>();
+            services.AddScoped<IAddressClientRepository, AddressClientRepository>();
+            services.AddScoped<IClientRepository, ClientRepository>();
+            services.AddScoped<ITenantRepository, TenantRepository>();
+            services.AddScoped<IPhoneClientRepository, PhoneClientRepository>();
+            services.AddScoped<IEmailClientRepository, EmailClientRepository>();
+            services.AddScoped<IProfessionRepository, ProfessionRepository>();
             
             #endregion
 
@@ -51,8 +64,19 @@ namespace BaseModel.Infra.IoC
             services.AddScoped<ISeedUserRoleInitial, SeedUserRoleInitial>();
             services.AddScoped<ITenantProvider, TenantProvider>();
             services.AddScoped<ITokenProvider, TokenService>();
+            services.AddScoped<IStateService, StateService>();
+            services.AddScoped<ICityService, CityService>();
+            services.AddScoped<IClientService, ClientService>();
+            services.AddScoped<IAddressClientService, AddressClientService>();
+            services.AddScoped<IEmailClientService, EmailClientService>();
+            services.AddScoped<IPhoneClientService, PhoneClientService>();
+            services.AddScoped<ITenantService, TenantService>();
+            services.AddScoped<IProfessionService, ProfessionService>();
             #endregion
 
+            #region Record
+            services.AddScoped<IConnectionStringValidator, ConnectionStringValidator>();
+            #endregion
 
             return services;
         }

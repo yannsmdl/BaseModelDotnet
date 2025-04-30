@@ -17,6 +17,9 @@ namespace BaseModel.Infra.Data.Context
 
         public DbSet<Tenant> Tenants { get; set; }
         public DbSet<Session> Sessions { get; set; }
+        public DbSet<State> States { get; set; }
+        public DbSet<City> Citys { get; set; }
+        public DbSet<Profession> Professions { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

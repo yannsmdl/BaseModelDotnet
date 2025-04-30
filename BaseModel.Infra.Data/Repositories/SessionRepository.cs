@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using BaseModel.Domain.Entities;
 using BaseModel.Domain.Interfaces;
 using BaseModel.Infra.Data.Context;
@@ -31,10 +27,10 @@ namespace BaseModel.Infra.Data.Repositories
             }
         }
 
-        public async Task SaveSession(string userId, string token)
+        public async Task SaveSession(string userId, string token, Guid tenantId)
         {
             var activeSessions = await DbSet
-                .Where(s => s.UserId == userId && s.RevokedAt == null)
+                .Where(s => s.UserId == userId && s.TenantId == tenantId && s.RevokedAt == null)
                 .ToListAsync();
 
             foreach (var session in activeSessions)
@@ -42,7 +38,7 @@ namespace BaseModel.Infra.Data.Repositories
                 session.Revoke();
             }
 
-            var newSession = new Session(Guid.NewGuid(), userId, token);
+            var newSession = new Session(Guid.NewGuid(), userId, token, tenantId);
             DbSet.Add(newSession);
 
             await Db.SaveChangesAsync();

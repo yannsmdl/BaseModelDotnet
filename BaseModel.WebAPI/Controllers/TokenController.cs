@@ -12,7 +12,7 @@ namespace BaseModel.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class TokenController : ControllerBase
+    public class TokenController : BaseController
     {
         private readonly IAuthenticate _authentication;
         public TokenController
@@ -27,16 +27,6 @@ namespace BaseModel.WebAPI.Controllers
         public async Task<ActionResult<UserTokenDTO>> Login([FromBody] LoginViewModel loginModel)
         {
             var userToken = await _authentication.Authenticate(loginModel.Email, loginModel.Password);
-            if (userToken != null) return userToken;
-            ModelState.AddModelError(string.Empty, "Invalid login attempt (password must be strong).");
-            return BadRequest(ModelState);
-        }
-
-        [HttpPost("Register")]
-        [ApiExplorerSettings(IgnoreApi = true)]
-        public async Task<ActionResult<UserTokenDTO>> Register([FromBody] LoginViewModel loginModel)
-        {
-            var userToken = await _authentication.RegisterUser(loginModel.Email, loginModel.Password);
             if (userToken != null) return userToken;
             ModelState.AddModelError(string.Empty, "Invalid login attempt (password must be strong).");
             return BadRequest(ModelState);

@@ -49,6 +49,29 @@ namespace BaseModel.Infra.IoC
                         if (session == null || session.RevokedAt != null)
                         {
                             context.Fail("Token revogado ou sessão não encontrada.");
+                            return;
+                        }
+
+                        var tenantUrlReceived = context.Request.Headers["X-Tenant-Url"].ToString();
+
+                        var tenantReceived = await dbContext.Tenants.FirstOrDefaultAsync(s => s.TenantUrl == tenantUrlReceived);
+                        if (tenantReceived == null)
+                        {
+                            context.Fail("Tenant recebido não é valido");
+                            return;
+                        }
+
+                        if (tenantReceived.Id != session.TenantId)
+                        {
+                            context.Fail("Tenant recebido não é o mesmo da sessão");
+                            return;
+                        }
+
+                        var user = await dbContext.Users.FirstOrDefaultAsync(s => s.Id == session.UserId);
+                        if (user == null)
+                        {
+                            context.Fail("Token revogado ou sessão não encontrada.");
+                            return;
                         }
                     }
                 };

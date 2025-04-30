@@ -30,5 +30,9 @@ namespace BaseModel.Infra.Data.Repositories
         {
             base.Update(category);
         }
+        public async Task<Category?> GetByName(string name)
+        {
+            return await DbSet.Where(e=> e.DeletedAt == null && e.Name == name).FirstOrDefaultAsync();
+        }
     }
 }

@@ -17,21 +17,9 @@ namespace BaseModel.Infra.Data.EntitiesConfiguration
         builder.HasData(
             new Tenant(
                 new Guid("11111111-1111-1111-1111-111111111111"),
-                "TenantA",
-                "Host=localhost;Database=yann_dotnet;Username=postgres;Password=postgres",
-                "http://tenant-a.com"
-            ),
-            new Tenant(
-                new Guid("22222222-2222-2222-2222-222222222222"),
-                "TenantB",
-                "Host=localhost;Database=tenant_b;Username=postgres;Password=postgres",
-                "http://tenant-b.com"
-            ),
-            new Tenant(
-                new Guid("33333333-3333-3333-3333-333333333333"),
-                "TenantC",
-                "Host=localhost;Database=tenant_c;Username=postgres;Password=postgres",
-                "http://tenant-c.com"
+                "ClientA",
+                "Host=localhost;Database=new_erp_client_a_dotnet;Username=postgres;Password=postgres",
+                "client-a"
             )
         );
     }

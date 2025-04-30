@@ -21,5 +21,12 @@ namespace BaseModel.Domain.Entities
             TenantUrl = tenantUrl;
             IsActive = true;
         }
+
+        public void Update(string name, string connectionString, string tenantUrl)
+        {
+            Name = name;
+            ConnectionString = connectionString;
+            TenantUrl = tenantUrl;
+        }
     }
 }
