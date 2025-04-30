@@ -1,6 +1,6 @@
-# 🏗️ Projeto em .NET com Clean Architecture + Multitenancy + JWT + Auditoria
+# 🏗️ Projeto em .NET de CRUD de cliente com Clean Architecture + Multitenancy + JWT
 
-Este projeto foi desenvolvido em **.NET 9** seguindo os princípios da **Clean Architecture** e aplicando alguns conceitos de **CQRS (Command Query Responsibility Segregation)**.
+Este projeto foi desenvolvido em **.NET 9** para a criação de um CRUD de cliente, seguindo os princípios da **Clean Architecture** e aplicando alguns conceitos de **CQRS (Command Query Responsibility Segregation)**.
 
 ## 🔧 Tecnologias e Arquitetura
 
