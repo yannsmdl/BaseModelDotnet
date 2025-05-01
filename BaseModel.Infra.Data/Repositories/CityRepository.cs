@@ -35,5 +35,16 @@ namespace BaseModel.Infra.Data.Repositories
         {
             return await DbSet.Where(e=> e.DeletedAt == null && e.StateId == stateId).ToListAsync();
         }
+
+        public async Task<City?> GetByNameAndUf(string name, string uf)
+        {
+            return await DbSet
+                .Include(e => e.State)
+                .Where(e => e.DeletedAt == null && 
+                            e.Name.ToLower() == name.ToLower() &&
+                            e.State.Initials.ToLower() == uf.ToLower())
+                .FirstOrDefaultAsync();
+
+        }
     }
 }

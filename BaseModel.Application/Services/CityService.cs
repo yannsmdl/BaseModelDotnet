@@ -32,6 +32,12 @@ namespace BaseModel.Application.Services
             var city = await _mediator.Send(cityQuery);
             return _mapper.Map<CityDTO>(city);
         }
+        public async Task<CityDTO?> GetByNameAndUf(string name, string uf)
+        {
+            var cityQuery = new GetByNameAndUfQuery(name, uf);
+            var city = await _mediator.Send(cityQuery);
+            return _mapper.Map<CityDTO>(city);
+        }
 
         public async Task<IEnumerable<CityDTO>> GetByStateId(Guid StateId)
         {

@@ -8,6 +8,7 @@ namespace BaseModel.Application.Interfaces
     {
         Task<IEnumerable<CityDTO>> GetAll();
         Task<CityDTO?> GetById(Guid Id);
+        Task<CityDTO?> GetByNameAndUf(string name, string uf);
         Task<ValidationResultWithData<Guid>> Add(CityDTO category);
         Task<ValidationResult> Update(CityDTO category);
         Task<ValidationResult> Remove(Guid Id);

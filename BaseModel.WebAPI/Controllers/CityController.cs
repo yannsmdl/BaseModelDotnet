@@ -8,7 +8,6 @@ namespace BaseModel.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class CityController : BaseController
     {
         private readonly ICityService _cityService;
@@ -37,6 +36,13 @@ namespace BaseModel.WebAPI.Controllers
             if (city == null) return NotFound("City not Found");
             return Ok(city);
         }
+        [HttpGet("Name", Name = "GetByIbgeId")]
+        public async Task<ActionResult<CityDTO>> GetByNameAndUf(string name, string uf)
+        {
+            var city = await _cityService.GetByNameAndUf(name,uf);
+            if (city == null) return NotFound("City not Found");
+            return Ok(city);
+        }
         [HttpGet("state/{Id:Guid}")]
         public async Task<ActionResult<IEnumerable<CityDTO>>> GetStateById(Guid StateId)
         {
@@ -44,6 +50,7 @@ namespace BaseModel.WebAPI.Controllers
             return Ok(city);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([FromBody] CityDTO cityDTO)
         {
             if (cityDTO == null) return BadRequest("Invalid Data");
@@ -57,6 +64,7 @@ namespace BaseModel.WebAPI.Controllers
             return Ok(result.Data);
         }
         [HttpPut("{Id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Update([FromBody] CityDTO cityDTO, Guid Id)
         {
             if (cityDTO == null) return BadRequest("Invalid Data");
@@ -72,6 +80,7 @@ namespace BaseModel.WebAPI.Controllers
         }
 
         [HttpDelete("{Id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(Guid Id)
         {
             var result = await _cityService.Remove(Id);

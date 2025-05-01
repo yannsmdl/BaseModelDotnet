@@ -8,7 +8,6 @@ namespace BaseModel.WebAPI.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]
-    [Authorize]
     public class ProfessionController : BaseController
     {
         private readonly IProfessionService _professionService;
@@ -38,6 +37,7 @@ namespace BaseModel.WebAPI.Controllers
             return Ok(profession);
         }
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Create([FromBody] ProfessionDTO professionDTO)
         {
             var result = await _professionService.Add(professionDTO);
@@ -50,6 +50,7 @@ namespace BaseModel.WebAPI.Controllers
             return Ok(result.Data);
         }
         [HttpPut("{Id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Update([FromBody] ProfessionDTO professionDTO, Guid Id)
         {
             professionDTO.Id = Id;
@@ -64,6 +65,7 @@ namespace BaseModel.WebAPI.Controllers
         }
 
         [HttpDelete("{Id:Guid}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Delete(Guid Id)
         {
             var result = await _professionService.Remove(Id);

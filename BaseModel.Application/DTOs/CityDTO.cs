@@ -15,5 +15,6 @@ namespace BaseModel.Application.DTOs
         [Required(ErrorMessage = "Initials is Required")]
         [DisplayName("Initials")]
         public string IbgeId { get;  set; }
+        public StateDTO State { get;  set; }
     }
 }

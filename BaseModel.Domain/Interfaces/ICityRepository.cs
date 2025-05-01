@@ -7,6 +7,7 @@ namespace BaseModel.Domain.Interfaces
     {
         Task<IEnumerable<City>> GetAll();
         Task<City?> GetById(Guid Id);
+        Task<City?> GetByNameAndUf(string name, string uf);
         Task<IEnumerable<City>> GetByStateId(Guid StateId);
         void Add(City City);
         void Update(City City);
